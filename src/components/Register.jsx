@@ -25,7 +25,10 @@ const Register = ({setShowRegister}) => {
     };
 
     try {
-      await axios.post('/users/register', newUser);
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/users/register`,
+        newUser
+      );
       setSuccess(true);
       setError(false);
     } catch (error) {

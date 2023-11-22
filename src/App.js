@@ -35,7 +35,9 @@ function App() {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const allPins = await axios.get('/pins');
+        const allPins = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/pins`
+        );
         // console.log(allPins);
         setPins(allPins.data);
       } catch (error) {
@@ -62,14 +64,17 @@ function App() {
     e.preventDefault();
 
     try {
-      const res = await axios.post('/pins', {
-        username: currentUsername,
-        title,
-        desc,
-        rating,
-        lat: newPlace.lat,
-        long: newPlace.long,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/pins`,
+        {
+          username: currentUsername,
+          title,
+          desc,
+          rating,
+          lat: newPlace.lat,
+          long: newPlace.long,
+        }
+      );
       setPins([...pins, res.data]);
       setNewPlace(null);
     } catch (error) {
@@ -85,7 +90,7 @@ function App() {
   return (
     <div style={{height: '100vh', width: '100vw'}}>
       <Map
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX}
+        mapboxAccessToken={`${process.env.REACT_APP_MAPBOX}`}
         initialViewState={{
           latitude: 46.040182,
           longitude: 10.071727,
